@@ -66,6 +66,19 @@ const delCardTitle = async function (req, res){
      res.status(200).json(result);
 }
 
+
+const moveTodoSeq = async function (req, res){
+//     console.log(req.body); { CL_SEQ: 46, CL_TODO_SEQ: 74 }
+    const dataSeq = {
+        "CL_SEQ" : req.body.CL_SEQ,
+        "CL_TODO_SEQ" : req.body.CL_TODO_SEQ,
+    }
+    // console.log(dataSeq); { CL_SEQ: 46, CL_TODO_SEQ: 74 }
+    let result = await ToDo.moveTodoSeq(dataSeq);
+    res.status(200).json(result);
+}
+
+
 /**
  * 
  * @param {*} todoSeq 
@@ -81,4 +94,5 @@ module.exports = {
     insertCardTitle,
     editCardTitle,
     delCardTitle,
+    moveTodoSeq
 }

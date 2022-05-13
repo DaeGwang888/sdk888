@@ -12,8 +12,10 @@
       </div>
       <div class="itemBody">  
         <div class="draggable">
-          <draggable> 
-          <div class="item" v-for="(item) in element.rows" :key="item.id">
+           <!--      v-bind:list="element.rows"(데이터바인딩 데이터와 UI통해 표시하고자 하는 데이터를 실제 데이터와 연결) change 이벤트는 요소(element)의 값이 변경될 때 발생 -->
+           <!--      :속성명="데이터 or 함수"                                   change 이벤트는 요소(element)의 값이 변경될 때 발생 -->
+          <draggable :list="element.rows" draggable=".item" group="itemGroup" @change="itemCardMove($event, element.id)"> 
+          <div v-for="(item) in element.rows" :key="item.id" class="item">
             {{item.name}}
             <input type="button" value="카드삭제" @click="delCardTitle(item.id)">
             <div><input type="text" v-model="item.name" ></div>
@@ -78,6 +80,7 @@ export default {
       addCardTitle: '',
       addTitle: '',
       itembox: '', 
+      list:'',
       num:0,
       addMode: 0,
       values: []
@@ -95,6 +98,32 @@ export default {
         console.log(this.values);
       });
     },
+
+    //itemCardMove를 클릭하면 ()의 값을 가져온다. 
+    itemCardMove(event,id){
+      console.log(event);
+      console.log(id);
+      if(event.added){
+        // console.log(event.added);
+        const itemGroup = event.added.element;
+        this.moveTodoSeq(itemGroup.id, id);
+      }
+    },
+    
+    moveTodoSeq(CardSeq,ToDoSeq){
+      // console.log(CardSeq); 46 
+      // console.log(ToDoSeq); 74
+      const data = {
+        "CL_SEQ": CardSeq,
+        "CL_TODO_SEQ": ToDoSeq
+      }
+      // {CL_SEQ: 46, CL_TODO_SEQ: 74}
+      todoApi.moveTodoSeq(data).then(res=>{
+        console.log(res);
+        this.getDataLoad()
+      })
+    },
+
 
     //delete 밑에 카드 삭제
     delList(id) {

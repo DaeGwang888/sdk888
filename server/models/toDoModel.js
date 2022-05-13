@@ -143,3 +143,15 @@ exports.delCardTitle =  async function(seq) {
 }
 
 
+exports.moveTodoSeq =  async function(seq) {
+    let sql = `UPDATE TBL_TODO_CARD  SET CL_TODO_SEQ = ? WHERE CL_SEQ = ?`;
+    let SEQ = [seq.CL_TODO_SEQ, seq.CL_SEQ];
+    db.query(sql, SEQ, function(error, resultData){
+        if(error){
+            return error  
+        }else{
+            response.json(resultData);
+        }
+    })
+}
+

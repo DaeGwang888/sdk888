@@ -13,7 +13,8 @@ const toDoController = require("../controllers/toDoController")
     router.post("/api/insertCardTitle", toDoController.insertCardTitle);
     router.post("/api/removeList", toDoController.removeList);
     router.post("/api/editCardTitle", toDoController.editCardTitle);
-    router.post("/api/delCardTitle", toDoController.delCardTitle)
+    router.post("/api/delCardTitle", toDoController.delCardTitle);
+    router.post("/api/moveTodoSeq", toDoController.moveTodoSeq);
 
 
 router.get('/', (req, res) => {

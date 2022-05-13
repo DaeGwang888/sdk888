@@ -69,3 +69,12 @@ export async function delCardTitle(data){
     }
 }
 
+export async function moveTodoSeq(data){
+    try{
+        console.log('moveToDoSeq /api/moveTodoSeq');
+        return http.post('/api/moveTodoSeq', data);
+    }catch(err){
+        return err;
+    }
+}
+
